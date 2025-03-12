@@ -5,5 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "clickhouse-connect>=0.8.15",
+    "clickhouse-sqlalchemy>=0.3.2",
     "numpy>=2.2.3",
+    "pandas>=2.2.3",
+    "sqlalchemy>=2.0.39",
+    "sqlalchemy-clickhouse>=0.1.5.post0",
 ]

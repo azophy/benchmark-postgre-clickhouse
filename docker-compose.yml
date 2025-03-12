@@ -42,7 +42,7 @@ services:
     working_dir: /app
     volumes:
       - .:/app
-    command: 'uv sync && tail -f /dev/null'
+    command: 'tail -f /dev/null'
 
 volumes:
   postgres_data:
