@@ -71,12 +71,13 @@ def write_csv(filename, generator, headers):
     with open(filename, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(headers)
-        writer.writerows(generator())
+        writer.writerows(generator)
 
-print("Generating CSV files...")
-write_csv("csv/citizens.csv", generate_citizens, ["id", "name", "age", "gender", "address", "city", "region", "country", "income", "education_level", "created_at"])
-write_csv("csv/employment.csv", generate_employment, ["citizen_id", "company", "position", "salary", "start_date", "end_date", "created_at"])
-write_csv("csv/health_records.csv", generate_health_records, ["citizen_id", "visit_date", "hospital", "diagnosis", "cost", "created_at"])
-write_csv("csv/taxes.csv", generate_taxes, ["citizen_id", "tax_year", "tax_paid", "created_at"])
-print("CSV files generated successfully!")
+if __name__ == '__main__':
+    print("Generating CSV files...")
+    write_csv("csv/citizens.csv", generate_citizens(), ["id", "name", "age", "gender", "address", "city", "region", "country", "income", "education_level", "created_at"])
+    write_csv("csv/employment.csv", generate_employment(), ["citizen_id", "company", "position", "salary", "start_date", "end_date", "created_at"])
+    write_csv("csv/health_records.csv", generate_health_records(), ["citizen_id", "visit_date", "hospital", "diagnosis", "cost", "created_at"])
+    write_csv("csv/taxes.csv", generate_taxes(), ["citizen_id", "tax_year", "tax_paid", "created_at"])
+    print("CSV files generated successfully!")
 
