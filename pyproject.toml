@@ -9,6 +9,6 @@ dependencies = [
     "clickhouse-sqlalchemy>=0.3.2",
     "numpy>=2.2.3",
     "pandas>=2.2.3",
+    "psycopg2>=2.9.10",
     "sqlalchemy>=2.0.39",
-    "sqlalchemy-clickhouse>=0.1.5.post0",
 ]

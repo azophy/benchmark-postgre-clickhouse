@@ -4,6 +4,7 @@ import numpy as np
 from datetime import datetime, timedelta
 
 # Configuration
+#NUM_CITIZENS = 50_000_000
 NUM_CITIZENS = 50_000_000
 EMPLOYMENT_RATIO = 0.6  # 60% of citizens have employment records
 HEALTH_VISIT_RATIO = 0.4  # 40% of citizens have health records
@@ -73,9 +74,9 @@ def write_csv(filename, generator, headers):
         writer.writerows(generator())
 
 print("Generating CSV files...")
-write_csv("citizens.csv", generate_citizens, ["id", "name", "age", "gender", "address", "city", "region", "country", "income", "education_level", "created_at"])
-write_csv("employment.csv", generate_employment, ["citizen_id", "company", "position", "salary", "start_date", "end_date", "created_at"])
-write_csv("health_records.csv", generate_health_records, ["citizen_id", "visit_date", "hospital", "diagnosis", "cost", "created_at"])
-write_csv("taxes.csv", generate_taxes, ["citizen_id", "tax_year", "tax_paid", "created_at"])
+write_csv("csv/citizens.csv", generate_citizens, ["id", "name", "age", "gender", "address", "city", "region", "country", "income", "education_level", "created_at"])
+write_csv("csv/employment.csv", generate_employment, ["citizen_id", "company", "position", "salary", "start_date", "end_date", "created_at"])
+write_csv("csv/health_records.csv", generate_health_records, ["citizen_id", "visit_date", "hospital", "diagnosis", "cost", "created_at"])
+write_csv("csv/taxes.csv", generate_taxes, ["citizen_id", "tax_year", "tax_paid", "created_at"])
 print("CSV files generated successfully!")
 

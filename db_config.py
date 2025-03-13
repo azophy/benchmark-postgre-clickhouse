@@ -14,8 +14,18 @@ CLICKHOUSE_TCP_PORT=os.getenv('CLICKHOUSE_TCP_PORT')
 
 # Configuration
 DB_CONFIG = {
-    "clickhouse": f"clickhouse://{CLICKHOUSE_USER}:{CLICKHOUSE_PASSWORD}@clickhouse/{CLICKHOUSE_DB}",
+    "clickhouse": f"clickhouse+native://{CLICKHOUSE_USER}:{CLICKHOUSE_PASSWORD}@clickhouse:9000/{CLICKHOUSE_DB}",
     "postgresql": f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@postgres:{POSTGRES_PORT}/{POSTGRES_DB}"
 }
+
+if __name__ == '__main__':
+    import sqlalchemy as sa
+    uri = DB_CONFIG['clickhouse']
+    print('uri:',uri)
+    engine = sa.create_engine(uri)
+    with engine.connect() as conn:
+        res = conn.execute(sa.text('SHOW TABLES;'))
+        for row in res:
+            print(row)
 
 

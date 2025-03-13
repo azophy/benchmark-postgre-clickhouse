@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 
 from db_config import DB_CONFIG
 
@@ -20,14 +20,14 @@ def import_csv_clickhouse(conn, csv_file, table_name):
     query = f"""
         INSERT INTO {table_name} SELECT * FROM file('{csv_file}', 'CSVWithNames')
     """
-    conn.execute(query)
+    conn.execute(text(query))
 
 # PostgreSQL import function
 def import_csv_postgresql(conn, csv_file, table_name):
     query = f"""
         COPY {table_name} FROM '{csv_file}' WITH CSV HEADER;
     """
-    conn.execute(query)
+    conn.execute(text(query))
 
 # Run import process
 def main():
@@ -36,15 +36,12 @@ def main():
         engine = get_engine(db)
         with engine.connect() as conn:
             for csv_file, table_name in TABLES.items():
-                if not os.path.exists(csv_file):
-                    print(f"File {csv_file} not found, skipping...")
-                    continue
-                
                 try:
+                    print(f"importing {csv_file} into {db}.{table_name}...")
                     if db == "clickhouse":
-                        import_csv_clickhouse(conn, csv_file, table_name)
+                        import_csv_clickhouse(conn, '/var/lib/clickhouse/user-files/csv/' + csv_file, table_name)
                     elif db == "postgresql":
-                        import_csv_postgresql(conn, csv_file, table_name)
+                        import_csv_postgresql(conn, '/csv/' + csv_file, table_name)
                     print(f"Successfully imported {csv_file} into {db}.{table_name}")
                 except Exception as e:
                     print(f"Error importing {csv_file} into {db}.{table_name}: {e}")
